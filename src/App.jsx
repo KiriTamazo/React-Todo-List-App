@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Header from "./components/header/Header";
+import TodoInput from "./components/input/TodoInput";
+import List from "./components/lists/List";
+import ListItems from "./components/lists/ListItems";
+import useDarkMode from "./hooks/useDarkMode";
+import { todoSelector } from "./redux/todoSlice";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const todoItem = useSelector(todoSelector);
+  console.log(todoItem);
+  const { theme, toggleTheme } = useDarkMode();
+  console.log(theme, "theme");
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className={`transition-all duration-500 min-h-screen bg-indigo-500`}>
+      APPP
+      <br />
+      <button className="btn" onClick={toggleTheme}>
+        DarkMode
+      </button>
+      <section className="max-w-[600px] max-h-[500px] text-[#080025] bg-[#fefdf2] dark:bg-[#080025] dark:text-[#F7F5FF] rounded-md p-4 mx-auto transition-all duration-500">
+        <Header />
+        <TodoInput />
+        <List />
+      </section>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
