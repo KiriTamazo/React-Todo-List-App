@@ -7,6 +7,8 @@ import ListItems from "./ListItems";
 const List = ({ currentSelect }) => {
   const todoItem = useSelector(todoSelector);
   const updateItem = [...todoItem].sort((a, b) => b.id - a.id);
+
+  // For Select Filter
   const filterItem = () => {
     if (currentSelect === "all") return updateItem;
     if (currentSelect === "completed")
@@ -15,8 +17,8 @@ const List = ({ currentSelect }) => {
       return updateItem.filter((item) => item.status === "incomplete");
   };
   const filterList = useMemo(filterItem, [updateItem]);
-  console.log(filterList);
 
+  // Fallback List Item
   if (filterList?.length < 1) {
     return (
       <motion.li

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { todoSelector } from "../../redux/todoSlice";
 import Modal from "../modal/Modal";
 import Select from "../select/Select";

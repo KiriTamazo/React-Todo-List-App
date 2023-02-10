@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, todoSelector } from "../../redux/todoSlice";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 const TodoInput = () => {

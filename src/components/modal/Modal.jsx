@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearTodo,
