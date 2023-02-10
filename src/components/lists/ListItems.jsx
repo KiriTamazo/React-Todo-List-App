@@ -1,7 +1,9 @@
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { todoSelector, deleteTodo } from "../../redux/todoSlice";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCheck } from "../../redux/todoSlice";
+import Modal from "../modal/Modal";
 
 const items = {
   hidden: { y: -20, opacity: 0 },
@@ -16,41 +18,69 @@ const items = {
 };
 
 export default function ListItems({ todo }) {
-  const todoItem = useSelector(todoSelector);
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(null);
   const { id, title, status } = todo;
   const listRef = useRef(false);
 
+  // For Animation
   useEffect(() => {
     listRef.current = true;
   }, []);
 
-  const handleRemove = (id) => {
-    console.log(id);
-    dispatch(deleteTodo({ id }));
+  const handleOpenModal = (type) => {
+    setModal(type);
+  };
+  const handleCheck = () => {
+    dispatch(setCheck(todo));
   };
 
-  const handleChange = () => {};
-
   return (
-    <motion.li
-      style={{
-        margin: "20px 0",
-        background: "gray",
-        padding: "10px 0",
-        borderRadius: "5px",
-      }}
-      key={id}
-      variants={items}
-      initial={listRef.current ? "visible" : "hidden"}
-      animate="visible"
-      exit="exit"
-      custom={id * 0.05}
-      layout="position"
-    >
-      <input onChange={handleChange} type="checkbox" checked={status} />
-      {title}
-      <button onClick={() => handleRemove(id)}>Delete</button>
-    </motion.li>
+    <>
+      <motion.li
+        className={`${
+          todo.status === "completed" ? "line-through text-gray-400" : ""
+        } my-3 bg-lighter-gray  dark:bg-darker-gray px-2 py-2.5 flex items-center gap-2
+        rounded-sm cursor-pointer`}
+        key={id}
+        variants={items}
+        initial={listRef.current ? "visible" : "hidden"}
+        animate="visible"
+        exit="exit"
+        custom={id * 0.05}
+        layout="position"
+      >
+        <div className="flex flex-1 items-center" onClick={handleCheck}>
+          <input
+            readOnly
+            type="checkbox"
+            checked={status === "completed" ? true : false}
+          />
+          <p className="pl-2  max-w-[120px] sm:max-w-none break-words sm:break-normal  text-ellipsis flex-1">
+            {" "}
+            {title}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleOpenModal("update")}
+            className="bg-green-500 p-1 rounded-sm text-white hover:scale-110 transition-all duration-500 ease-in-out"
+          >
+            <PencilSquareIcon className="w-4 h-4" />
+          </button>
+          <button
+            className="bg-red-500 p-1 rounded-sm text-white hover:scale-110 transition-all duration-500 ease-in-out"
+            onClick={() => {
+              handleOpenModal("delete");
+            }}
+          >
+            <TrashIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </motion.li>
+      <AnimatePresence>
+        {modal !== null && <Modal title={modal} setModal={setModal} id={id} />}
+      </AnimatePresence>
+    </>
   );
 }

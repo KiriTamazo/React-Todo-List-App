@@ -11,8 +11,11 @@ module.exports = {
     },
 
     extend: {
-      colors: { 
-        'dark': "#080025" 
+      colors: {
+        dark: "#080025",
+        light: "#f7ffff",
+        "lighter-gray": "#f2f3f4",
+        "darker-gray": "#2d2d41",
       },
     },
   },

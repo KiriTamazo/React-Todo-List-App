@@ -16,14 +16,34 @@
     list-style: none;
   }
   input {
-    @apply bg-[#f2f3f4] outline-none px-4 py-2 rounded-sm;
+    @apply outline-none px-4 py-2 rounded-sm;
+  }
+  input[type="checkbox"] {
+    @apply grid place-items-center appearance-none w-5 h-5 p-0 bg-white dark:bg-black;
+  }
+  input[type="checkbox"]:checked {
+    @apply bg-indigo-500;
+  }
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+  }
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+    background-color: #fff;
   }
   .container {
-    @apply max-w-[600px] text-[#080025] bg-[#fefdf2] dark:bg-[#080025] dark:text-[#F7F5FF] rounded-md p-4 mx-auto;
+    @apply max-w-[600px] text-dark bg-light dark:bg-dark dark:text-light rounded-md p-4 mx-auto;
   }
   .btn {
-    @apply px-4 py-2 
-    rounded hover:scale-105 transition-all duration-500 active:scale-95;
+    @apply min-w-[50px] min-h-[50px]  px-3 py-1 border-none cursor-pointer 
+    rounded-sm hover:scale-105 transition-all duration-500 active:scale-95;
   }
 
   /* Scroll */
@@ -43,5 +63,8 @@
   }
   .list::-webkit-scrollbar-thumb {
     @apply rounded-full bg-gradient-to-tr from-blue-500 to-green-500 via-teal-500;
+  }
+  .bg-light-gradient {
+    @apply bg-gradient-to-b from-[#00d2ff] to-[#3a47d5] dark:from-[#4b6cb7] dark:to-[#182848];
   }
 }
