@@ -46,7 +46,6 @@ const Modal = ({ title, setModal, id }) => {
     setModal(null);
   };
 
-  console.log({ id, title: input, status: currentSelect });
   return (
     <motion.div
       key="modal-container"
@@ -54,7 +53,7 @@ const Modal = ({ title, setModal, id }) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="w-screen h-screen z-50 fixed inset-0 bg-opacity-40 bg-slate-800 flex items-center justify-center"
+      className="w-screen h-screen z-50 fixed inset-0 bg-opacity-40 bg-slate-800 flex items-center justify-center "
     >
       <motion.div
         variants={modal}
@@ -62,8 +61,8 @@ const Modal = ({ title, setModal, id }) => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col min-w-[400px]  px-4 py-4 rounded-sm dark:bg-dark bg-white
-        text-dark dark:text-light
+        className="flex flex-col min-w-fit sm:min-w-[400px]  px-4 py-4 rounded-sm dark:bg-dark bg-white
+        text-dark dark:text-light 
       "
       >
         {/* Modal Header */}
